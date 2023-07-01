@@ -126,8 +126,8 @@ def run_eval():
 
 
 if __name__ == "__main__":
-    exists = os.path.exists("wizard_eval")
+    exists = os.path.exists("opencode_eval")
     if not exists:
-        os.mkdir("wizard_eval")
+        os.mkdir("opencode_eval")
 
     run_eval()
