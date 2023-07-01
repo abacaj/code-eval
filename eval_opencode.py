@@ -88,7 +88,6 @@ def run_eval():
     num_samples_per_task = 10
     tokenizer = AutoTokenizer.from_pretrained(
         "openchat/opencoderplus",
-        use_fast=False,
         use_auth_token=token,
     )
 
