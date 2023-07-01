@@ -1,4 +1,10 @@
-# code-val
+# code-eval
+
+## What
+
+This is a repo I use to run human-eval on code models, adjust as needed. Adjusted from wizardcoder repo.
+
+## Setup
 
 Create python environment
 
