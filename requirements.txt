@@ -1,0 +1,4 @@
+-e ./human-eval
+transformers==4.30.2
+torch==2.0.1
+accelerate==0.20.3

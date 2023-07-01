@@ -1,5 +1,6 @@
 from human_eval.data import write_jsonl, read_problems
 from transformers import AutoTokenizer, GPTBigCodeForCausalLM, PreTrainedTokenizer
+import os
 import torch
 from tqdm import tqdm
 
@@ -84,7 +85,7 @@ def run_eval():
     problems = read_problems()
 
     # adjust for n = 10 etc
-    num_samples_per_task = 5
+    num_samples_per_task = 10
     tokenizer = AutoTokenizer.from_pretrained(
         "openchat/opencoderplus",
         use_fast=False,
@@ -126,4 +127,8 @@ def run_eval():
 
 
 if __name__ == "__main__":
+    exists = os.path.exists("wizard_eval")
+    if not exists:
+        os.mkdir("wizard_eval")
+
     run_eval()

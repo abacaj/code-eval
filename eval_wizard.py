@@ -1,5 +1,6 @@
 from human_eval.data import write_jsonl, read_problems
 from transformers import AutoTokenizer, GPTBigCodeForCausalLM
+import os
 import torch
 from tqdm import tqdm
 
@@ -94,4 +95,8 @@ def run_eval():
 
 
 if __name__ == "__main__":
+    exists = os.path.exists("wizard_eval")
+    if not exists:
+        os.mkdir("wizard_eval")
+
     run_eval()
