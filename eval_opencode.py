@@ -122,7 +122,7 @@ def run_eval():
 
         pbar.update(num_samples_per_task)
 
-    write_jsonl("opencoder.jsonl", samples)
+    write_jsonl("opencode_eval/opencoder.jsonl", samples)
 
 
 if __name__ == "__main__":

@@ -91,7 +91,7 @@ def run_eval():
 
         pbar.update(num_samples_per_task)
 
-    write_jsonl("wizardcoder.jsonl", samples)
+    write_jsonl("wizard_eval/wizardcoder.jsonl", samples)
 
 
 if __name__ == "__main__":
