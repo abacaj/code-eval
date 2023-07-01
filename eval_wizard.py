@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 # TODO: move to python-dotenv
 # add hugging face access token here
-token = ""
+TOKEN = ""
 
 
 def format_output(output: str):
@@ -51,14 +51,12 @@ Create a Python script for this problem:
     return [format_output(out) for out in output]
 
 
-def run_eval():
+def run_eval(num_samples_per_task: int):
     problems = read_problems()
 
-    # adjust for n = 10 etc
-    num_samples_per_task = 10
     tokenizer = AutoTokenizer.from_pretrained(
         "WizardLM/WizardCoder-15B-V1.0",
-        use_auth_token=token,
+        use_auth_token=TOKEN,
     )
     model = torch.compile(
         GPTBigCodeForCausalLM.from_pretrained(
@@ -69,7 +67,7 @@ def run_eval():
                 0: "18GiB",
                 1: "18GiB",
             },
-            use_auth_token=token,
+            use_auth_token=TOKEN,
         ).eval()
     )
 
@@ -95,8 +93,11 @@ def run_eval():
 
 
 if __name__ == "__main__":
+    # adjust for n = 10 etc
+    num_samples_per_task = 10
+
     exists = os.path.exists("wizard_eval")
     if not exists:
         os.mkdir("wizard_eval")
 
-    run_eval()
+    run_eval(num_samples_per_task)

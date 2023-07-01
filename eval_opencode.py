@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 # TODO: move to python-dotenv
 # add hugging face access token here
-token = ""
+TOKEN = ""
 
 
 def format_output(output: str):
@@ -71,7 +71,7 @@ def tokenize_opencode(tokenizer: PreTrainedTokenizer, prompt: str):
     }
 
 
-def convert_to_tensors(opencode_tokens: list[dict], device):
+def convert_to_tensors(opencode_tokens: list[dict], device: torch.device):
     input_ids = [tokens["input_ids"] for tokens in opencode_tokens]
     attention_mask = [tokens["attention_mask"] for tokens in opencode_tokens]
 
@@ -81,14 +81,12 @@ def convert_to_tensors(opencode_tokens: list[dict], device):
     }
 
 
-def run_eval():
+def run_eval(num_samples_per_task: int):
     problems = read_problems()
 
-    # adjust for n = 10 etc
-    num_samples_per_task = 10
     tokenizer = AutoTokenizer.from_pretrained(
         "openchat/opencoderplus",
-        use_auth_token=token,
+        use_auth_token=TOKEN,
     )
 
     model = torch.compile(
@@ -100,7 +98,7 @@ def run_eval():
                 0: "18GiB",
                 1: "18GiB",
             },
-            use_auth_token=token,
+            use_auth_token=TOKEN,
         ).eval()
     )
 
@@ -126,8 +124,11 @@ def run_eval():
 
 
 if __name__ == "__main__":
+    # adjust for n = 10 etc
+    num_samples_per_task = 10
+
     exists = os.path.exists("opencode_eval")
     if not exists:
         os.mkdir("opencode_eval")
 
-    run_eval()
+    run_eval(num_samples_per_task)
