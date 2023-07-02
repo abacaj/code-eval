@@ -2,7 +2,7 @@
 
 ## What
 
-This is a repo I use to run human-eval on code models, adjust as needed. Adjusted from wizardcoder repo.
+This is a repo I use to run human-eval on code models, adjust as needed. Some scripts adjusted from wizardcoder repo. The code is duplicated, mostly to handle edge cases around model tokenizing and loading (might eventually clean it up).
 
 ## Results
  
