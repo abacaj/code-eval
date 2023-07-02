@@ -1,14 +1,19 @@
-from human_eval.data import write_jsonl, read_problems
-from transformers import AutoTokenizer, GPTBigCodeForCausalLM
+from transformers import (
+    AutoTokenizer,
+    GPTBigCodeForCausalLM,
+    PreTrainedTokenizer,
+    PreTrainedModel,
+)
+from core import run_eval
 import os
 import torch
-from tqdm import tqdm
 
 # TODO: move to python-dotenv
 # add hugging face access token here
 TOKEN = ""
 
 
+# references: https://github.com/nlpxucan/WizardLM/tree/main/WizardCoder
 def format_output(output: str):
     try:
         return output.replace("\t", "    ")
@@ -18,7 +23,7 @@ def format_output(output: str):
 
 @torch.inference_mode()
 def generate_batch_completion(
-    model: GPTBigCodeForCausalLM, tokenizer, prompt, batch_size
+    model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt: str, batch_size: int
 ) -> list[str]:
     prompt_input = f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -51,16 +56,20 @@ Create a Python script for this problem:
     return [format_output(out) for out in output]
 
 
-def run_eval(num_samples_per_task: int):
-    problems = read_problems()
+if __name__ == "__main__":
+    # adjust for n = 10 etc
+    num_samples_per_task = 10
+    out_path = "results/wizard/eval.jsonl"
+    os.makedirs("results/wizard", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "WizardLM/WizardCoder-15B-V1.0",
+        "openchat/opencoderplus",
         use_auth_token=TOKEN,
     )
+
     model = torch.compile(
         GPTBigCodeForCausalLM.from_pretrained(
-            "WizardLM/WizardCoder-15B-V1.0",
+            "openchat/opencoderplus",
             device_map="auto",
             torch_dtype=torch.bfloat16,
             max_memory={
@@ -71,30 +80,6 @@ def run_eval(num_samples_per_task: int):
         ).eval()
     )
 
-    samples = []
-    pbar = tqdm(total=len(problems) * num_samples_per_task)
-    for task_id in problems:
-        prompt = problems[task_id]["prompt"].replace("    ", "\t")
-        batch_completions = generate_batch_completion(
-            model, tokenizer, prompt, num_samples_per_task
-        )
-
-        for sample in batch_completions:
-            result = dict(
-                task_id=task_id,
-                completion=sample,
-            )
-
-            samples += [result]
-
-        pbar.update(num_samples_per_task)
-
-    write_jsonl("results/wizard/eval.jsonl", samples)
-
-
-if __name__ == "__main__":
-    # adjust for n = 10 etc
-    num_samples_per_task = 10
-    os.makedirs("results/wizard", exist_ok=True)
-
-    run_eval(num_samples_per_task)
+    run_eval(
+        model, tokenizer, num_samples_per_task, out_path, generate_batch_completion
+    )

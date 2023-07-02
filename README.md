@@ -29,12 +29,12 @@ pip install -r requirements.txt
 Run the eval script
 
 ```sh
-# adjust file name for various models:
-# models/eval_wizard.py
-# models/eval_opencode.py
-# models/eval_replit.py
+# adjust script file name for various models:
+# eval_wizard.py
+# eval_opencode.py
+# eval_replit.py
 
-python models/eval_wizard.py
+python eval_wizard.py
 ```
 
 Process the jsonl file to extract code samples from model completions
@@ -51,7 +51,7 @@ python process_eval.py --path results/wizard --out_path results/wizard/processed
 Then get the results
 
 ```sh
-# adjust file for various models:
+# adjust args for various models:
 # results/wizard/processed.jsonl
 # results/opencode/processed.jsonl
 # results/replit/processed.jsonl

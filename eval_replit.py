@@ -1,37 +1,48 @@
-from human_eval.data import write_jsonl, read_problems
 from transformers import (
     AutoTokenizer,
     AutoModelForCausalLM,
     PreTrainedModel,
     PreTrainedTokenizer,
 )
+from core import run_eval
 import os
 import torch
-from tqdm import tqdm
 
 # TODO: move to python-dotenv
 # add hugging face access token here
 TOKEN = ""
 
 
-def format_output(output: str):
-    try:
-        return output.replace("\t", "    ")
-    except:
-        return ""
+# references: https://github.com/declare-lab/instruct-eval
+def count_indent(text: str) -> int:
+    count = 0
+    for char in text:
+        if char == " ":
+            count += 1
+        else:
+            break
+    return count
+
+
+def fix_indents(text: str, multiple: int = 2) -> str:
+    outputs = []
+    for line in text.split("\n"):
+        while count_indent(line) % multiple != 0:
+            line = " " + line
+        outputs.append(line)
+    return "\n".join(outputs)
+
+
+def filter_code(completion: str) -> str:
+    completion = completion.lstrip("\n")
+    return completion.split("\n\n")[0]
 
 
 @torch.inference_mode()
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
 ) -> list[str]:
-    prompt_input = f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
-
-### Instruction:
-Create a Python script for this problem:
-{prompt}
-
-### Response:"""
+    prompt_input = f"""Complete the following Python code without any additional tests or explanations\n{prompt}"""
 
     input_batch = [prompt_input for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
@@ -54,17 +65,21 @@ Create a Python script for this problem:
         clean_up_tokenization_spaces=False,
     )
 
-    return [format_output(out) for out in output]
+    return [filter_code(fix_indents(sample)) for sample in output]
 
 
-def run_eval(num_samples_per_task: int):
-    problems = read_problems()
+if __name__ == "__main__":
+    # adjust for n = 10 etc
+    num_samples_per_task = 10
+    out_path = "results/replit/eval.jsonl"
+    os.makedirs("results/replit", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
         "replit/replit-code-v1-3b",
         trust_remote_code=True,
         use_auth_token=TOKEN,
     )
+
     model = torch.compile(
         AutoModelForCausalLM.from_pretrained(
             "replit/replit-code-v1-3b",
@@ -75,30 +90,6 @@ def run_eval(num_samples_per_task: int):
         ).eval()
     )
 
-    samples = []
-    pbar = tqdm(total=len(problems) * num_samples_per_task)
-    for task_id in problems:
-        prompt = problems[task_id]["prompt"].replace("    ", "\t")
-        batch_completions = generate_batch_completion(
-            model, tokenizer, prompt, num_samples_per_task
-        )
-
-        for sample in batch_completions:
-            result = dict(
-                task_id=task_id,
-                completion=sample,
-            )
-
-            samples += [result]
-
-        pbar.update(num_samples_per_task)
-
-    write_jsonl("results/replit/eval.jsonl", samples)
-
-
-if __name__ == "__main__":
-    # adjust for n = 10 etc
-    num_samples_per_task = 10
-    os.makedirs("results/replit", exist_ok=True)
-
-    run_eval(num_samples_per_task)
+    run_eval(
+        model, tokenizer, num_samples_per_task, out_path, generate_batch_completion
+    )
