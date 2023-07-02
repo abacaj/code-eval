@@ -4,21 +4,13 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
 )
-from core import run_eval
+from core import run_eval, fix_indents
 import os
 import torch
 
 # TODO: move to python-dotenv
 # add hugging face access token here
 TOKEN = ""
-
-
-# references: https://github.com/nlpxucan/WizardLM/tree/main/WizardCoder
-def format_output(output: str):
-    try:
-        return output.replace("\t", "    ")
-    except:
-        return ""
 
 
 @torch.inference_mode()
@@ -45,7 +37,7 @@ def generate_batch_completion(
         skip_special_tokens=True,
     )
 
-    return [format_output(out) for out in output]
+    return [fix_indents(out) for out in output]
 
 
 def tokenize_opencode(tokenizer: PreTrainedTokenizer, prompt: str):

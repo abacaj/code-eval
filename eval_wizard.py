@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval
+from core import run_eval, fix_indents
 import os
 import torch
 
@@ -39,7 +39,7 @@ def generate_batch_completion(
         skip_special_tokens=True,
     )
 
-    return output
+    return [fix_indents(out) for out in output]
 
 
 if __name__ == "__main__":

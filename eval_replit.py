@@ -4,17 +4,13 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
 )
-from core import run_eval
+from core import run_eval, fix_indents
 import os
 import torch
 
 # TODO: move to python-dotenv
 # add hugging face access token here
 TOKEN = ""
-
-
-def fix_indents(text: str) -> str:
-    return text.replace("\t", "    ")
 
 
 def filter_code(completion: str) -> str:

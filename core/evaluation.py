@@ -12,6 +12,10 @@ BatchGenerator = typing.Callable[
 ]
 
 
+def fix_indents(text: str) -> str:
+    return text.replace("\t", "    ")
+
+
 def run_eval(
     model: PreTrainedModel,
     tokenizer: PreTrainedTokenizer,
