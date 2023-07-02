@@ -29,7 +29,7 @@ pip install -r requirements.txt
 Run the eval script
 
 ```sh
-# adjust script file name for various models:
+# replace script file name for various models:
 # eval_wizard.py
 # eval_opencode.py
 # eval_replit.py
@@ -38,12 +38,13 @@ python eval_wizard.py
 ```
 
 Process the jsonl file to extract code samples from model completions
+**Note**: replit base model does not go through this process
 
 ```sh
-# adjust args for various models:
+# replace args for various models:
 # --path results/wizard --out_path results/wizard/eval.jsonl
 # --path results/opencode --out_path results/opencode/eval.jsonl
-# --path results/replit --out_path results/replit/eval.jsonl
+# --path results/replit_instruct --out_path results/replit_instruct/eval.jsonl
 
 python process_eval.py --path results/wizard --out_path results/wizard/processed.jsonl --add_prompt
 ```
@@ -51,10 +52,11 @@ python process_eval.py --path results/wizard --out_path results/wizard/processed
 Then get the results
 
 ```sh
-# adjust args for various models:
+# replace args for various models:
 # results/wizard/processed.jsonl
 # results/opencode/processed.jsonl
-# results/replit/processed.jsonl
+# results/replit_instruct/processed.jsonl
+# results/replit/eval.jsonl
 
 evaluate_functional_correctness results/wizard/processed.jsonl
 ```
