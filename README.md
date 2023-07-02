@@ -39,13 +39,12 @@ python eval_wizard.py
 
 Process the jsonl file to extract code samples from model completions
 
-**Note**: the replit base model does not go through this process
+**Note**: the replit base + instruct model does not go through this process
 
 ```sh
 # replace args for various models:
 # --path results/wizard --out_path results/wizard/eval.jsonl
 # --path results/opencode --out_path results/opencode/eval.jsonl
-# --path results/replit_instruct --out_path results/replit_instruct/eval.jsonl
 
 python process_eval.py --path results/wizard --out_path results/wizard/processed.jsonl --add_prompt
 ```
@@ -56,7 +55,7 @@ Then get the results
 # replace args for various models:
 # results/wizard/processed.jsonl
 # results/opencode/processed.jsonl
-# results/replit_instruct/processed.jsonl
+# results/replit_instruct/eval.jsonl
 # results/replit/eval.jsonl
 
 evaluate_functional_correctness results/wizard/processed.jsonl

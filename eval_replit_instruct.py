@@ -13,25 +13,11 @@ import torch
 TOKEN = ""
 
 
-# references: https://github.com/nlpxucan/WizardLM/tree/main/WizardCoder
-def format_output(output: str):
-    try:
-        return output.replace("\t", "    ")
-    except:
-        return ""
-
-
 @torch.inference_mode()
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt: str, batch_size: int
 ) -> list[str]:
-    prompt_input = f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
-
-### Instruction:
-Create a Python script for this problem:
-{prompt}
-
-### Response:"""
+    prompt_input = f"""### Instruction:\nComplete the following Python code without any tests or explanation\n{prompt}\n\n### Response:"""
 
     input_batch = [prompt_input for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
@@ -54,7 +40,7 @@ Create a Python script for this problem:
         clean_up_tokenization_spaces=False,
     )
 
-    return [format_output(out) for out in output]
+    return output
 
 
 if __name__ == "__main__":

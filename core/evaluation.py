@@ -4,6 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
 )
 from tqdm import tqdm
+import itertools
 import typing
 
 BatchGenerator = typing.Callable[
@@ -17,13 +18,19 @@ def run_eval(
     num_samples_per_task: int,
     out_path: str,
     generate_batch_completion: BatchGenerator,
+    is_starcoder: bool = False,
 ):
     problems = read_problems()
+    # problems = dict(itertools.islice(problems.items(), 20))
     samples = []
     pbar = tqdm(total=len(problems) * num_samples_per_task)
 
     for task_id in problems:
-        prompt = problems[task_id]["prompt"].replace("    ", "\t")
+        if is_starcoder:
+            prompt = problems[task_id]["prompt"].replace("    ", "\t")
+        else:
+            prompt = problems[task_id]["prompt"]
+
         batch_completions = generate_batch_completion(
             model, tokenizer, prompt, num_samples_per_task
         )

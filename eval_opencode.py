@@ -54,7 +54,9 @@ def tokenize_opencode(tokenizer: PreTrainedTokenizer, prompt: str):
 
     # verbose, but follows what is shown in the readme
     user = tokenizer("User:")
-    prompt_text = tokenizer(f"""Create a Python script for this problem: {prompt}""")
+    prompt_text = tokenizer(
+        f"""Complete the following Python code without any tests or explanation\n{prompt}"""
+    )
     eot_token = tokenizer("<|end_of_turn|>")
     assistant = tokenizer("Assistant:")
 
@@ -111,5 +113,10 @@ if __name__ == "__main__":
     )
 
     run_eval(
-        model, tokenizer, num_samples_per_task, out_path, generate_batch_completion
+        model,
+        tokenizer,
+        num_samples_per_task,
+        out_path,
+        generate_batch_completion,
+        True,
     )

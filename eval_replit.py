@@ -13,27 +13,12 @@ import torch
 TOKEN = ""
 
 
-# references: https://github.com/declare-lab/instruct-eval
-def count_indent(text: str) -> int:
-    count = 0
-    for char in text:
-        if char == " ":
-            count += 1
-        else:
-            break
-    return count
-
-
-def fix_indents(text: str, multiple: int = 2) -> str:
-    outputs = []
-    for line in text.split("\n"):
-        while count_indent(line) % multiple != 0:
-            line = " " + line
-        outputs.append(line)
-    return "\n".join(outputs)
+def fix_indents(text: str) -> str:
+    return text.replace("\t", "    ")
 
 
 def filter_code(completion: str) -> str:
+    # The program tends to overwrite, we only take the first function
     completion = completion.lstrip("\n")
     return completion.split("\n\n")[0]
 
@@ -42,7 +27,7 @@ def filter_code(completion: str) -> str:
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
 ) -> list[str]:
-    prompt_input = f"""Complete the following Python code without any additional tests or explanations\n{prompt}"""
+    prompt_input = f"""Complete the following Python code without any tests or explanation\n{prompt}"""
 
     input_batch = [prompt_input for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
@@ -59,13 +44,13 @@ def generate_batch_completion(
         pad_token_id=tokenizer.pad_token_id,
     )
 
-    output = tokenizer.batch_decode(
+    batch_completions = tokenizer.batch_decode(
         [ids[input_ids_cutoff:] for ids in generated_ids],
         skip_special_tokens=True,
         clean_up_tokenization_spaces=False,
     )
 
-    return [filter_code(fix_indents(sample)) for sample in output]
+    return [filter_code(fix_indents(completion)) for completion in batch_completions]
 
 
 if __name__ == "__main__":
@@ -91,5 +76,9 @@ if __name__ == "__main__":
     )
 
     run_eval(
-        model, tokenizer, num_samples_per_task, out_path, generate_batch_completion
+        model,
+        tokenizer,
+        num_samples_per_task,
+        out_path,
+        generate_batch_completion,
     )
