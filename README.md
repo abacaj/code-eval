@@ -5,13 +5,12 @@
 This is a repo I use to run human-eval on code models, adjust as needed. Adjusted from wizardcoder repo.
 
 ## Results
+ 
+| model | pass@1 | pass@10 | screenshot |
+| ----- | ------ | ------- | ---------- |
+| [WizardCoder](WizardLM/WizardCoder-15B-V1.0) | 57%    | 68.9%   | ![wizardcoder](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e) |
 
-#### [WizardCoder](WizardLM/WizardCoder-15B-V1.0) 
-| pass@1 | pass@10 |
-| ------ | ------- |
-| 57%    | 68.9%   |
 
-![wizardcoder](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e)
 
 ## Setup
 
