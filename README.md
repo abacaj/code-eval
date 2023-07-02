@@ -38,7 +38,8 @@ python eval_wizard.py
 ```
 
 Process the jsonl file to extract code samples from model completions
-**Note**: replit base model does not go through this process
+
+**Note**: the replit base model does not go through this process
 
 ```sh
 # replace args for various models:
