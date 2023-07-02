@@ -93,15 +93,12 @@ def run_eval(num_samples_per_task: int):
 
         pbar.update(num_samples_per_task)
 
-    write_jsonl("replit_eval/replit.jsonl", samples)
+    write_jsonl("results/replit/eval.jsonl", samples)
 
 
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-
-    exists = os.path.exists("replit_eval")
-    if not exists:
-        os.mkdir("replit_eval")
+    os.makedirs("results/replit", exist_ok=True)
 
     run_eval(num_samples_per_task)

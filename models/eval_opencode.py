@@ -120,15 +120,12 @@ def run_eval(num_samples_per_task: int):
 
         pbar.update(num_samples_per_task)
 
-    write_jsonl("opencode_eval/opencoder.jsonl", samples)
+    write_jsonl("results/opencode/eval.jsonl", samples)
 
 
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-
-    exists = os.path.exists("opencode_eval")
-    if not exists:
-        os.mkdir("opencode_eval")
+    os.makedirs("results/opencode", exist_ok=True)
 
     run_eval(num_samples_per_task)

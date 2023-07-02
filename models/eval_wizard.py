@@ -89,15 +89,12 @@ def run_eval(num_samples_per_task: int):
 
         pbar.update(num_samples_per_task)
 
-    write_jsonl("wizard_eval/wizardcoder.jsonl", samples)
+    write_jsonl("results/wizard/eval.jsonl", samples)
 
 
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-
-    exists = os.path.exists("wizard_eval")
-    if not exists:
-        os.mkdir("wizard_eval")
+    os.makedirs("results/wizard", exist_ok=True)
 
     run_eval(num_samples_per_task)
