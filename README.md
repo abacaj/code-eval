@@ -27,7 +27,7 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run wizardcoder
+Run the eval script
 
 ```sh
 # adjust file name for various models:
@@ -38,7 +38,7 @@ Run wizardcoder
 python eval_wizard.py
 ```
 
-Process the jsonl file using wizardcoder script to extract the code samples
+Process the jsonl file to extract code samples from model completions
 
 ```sh
 # adjust args for various models:
@@ -49,7 +49,7 @@ Process the jsonl file using wizardcoder script to extract the code samples
 python process_eval.py --path wizard_eval --out_path wizard_eval.jsonl --add_prompt
 ```
 
-Then run the eval script
+Then get the results
 
 ```sh
 # adjust file for various models:
