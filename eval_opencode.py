@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
 )
-from core import run_eval, fix_indents
+from core import run_eval, fix_indents, standard_prompt
 import os
 import torch
 
@@ -46,9 +46,7 @@ def tokenize_opencode(tokenizer: PreTrainedTokenizer, prompt: str):
 
     # verbose, but follows what is shown in the readme
     user = tokenizer("User:")
-    prompt_text = tokenizer(
-        f"""Complete the following Python code without any tests or explanation\n{prompt}"""
-    )
+    prompt_text = tokenizer(standard_prompt(prompt))
     eot_token = tokenizer("<|end_of_turn|>")
     assistant = tokenizer("Assistant:")
 

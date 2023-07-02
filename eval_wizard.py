@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval, fix_indents
+from core import run_eval, fix_indents, instruct_prompt
 import os
 import torch
 
@@ -17,8 +17,7 @@ TOKEN = ""
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt: str, batch_size: int
 ) -> list[str]:
-    prompt_input = f"""### Instruction:\nComplete the following Python code without any tests or explanation\n{prompt}\n\n### Response:"""
-
+    prompt_input = instruct_prompt(prompt)
     input_batch = [prompt_input for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
     input_ids_cutoff = inputs.input_ids.size(dim=1)

@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
 )
-from core import run_eval, fix_indents
+from core import run_eval, fix_indents, standard_prompt
 import os
 import torch
 
@@ -13,6 +13,7 @@ import torch
 TOKEN = ""
 
 
+# reference: https://github.com/declare-lab/instruct-eval/blob/main/human_eval/main.py#L35
 def filter_code(completion: str) -> str:
     # The program tends to overwrite, we only take the first function
     completion = completion.lstrip("\n")
@@ -23,8 +24,7 @@ def filter_code(completion: str) -> str:
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
 ) -> list[str]:
-    prompt_input = f"""Complete the following Python code without any tests or explanation\n{prompt}"""
-
+    prompt_input = standard_prompt(prompt)
     input_batch = [prompt_input for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
     input_ids_cutoff = inputs.input_ids.size(dim=1)
