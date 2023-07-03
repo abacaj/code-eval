@@ -45,8 +45,8 @@ def generate_batch_completion(
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-    out_path = "results/replit_instruct/eval.jsonl"
-    os.makedirs("results/replit_instruct", exist_ok=True)
+    out_path = "results/replit_glaive/eval.jsonl"
+    os.makedirs("results/replit_glaive", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
         "sahil2801/replit-code-instruct-glaive",
