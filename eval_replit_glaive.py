@@ -57,10 +57,10 @@ if __name__ == "__main__":
     model = torch.compile(
         AutoModelForCausalLM.from_pretrained(
             "sahil2801/replit-code-instruct-glaive",
-            device_map="auto",
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
             use_auth_token=TOKEN,
+            init_device="cuda",
         ).eval()
     )
 
