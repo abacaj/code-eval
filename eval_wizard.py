@@ -33,12 +33,12 @@ def generate_batch_completion(
         pad_token_id=tokenizer.pad_token_id,
     )
 
-    output = tokenizer.batch_decode(
+    batch_completions = tokenizer.batch_decode(
         [ids[input_ids_cutoff:] for ids in generated_ids],
         skip_special_tokens=True,
     )
 
-    return [fix_indents(out) for out in output]
+    return [fix_indents(completion) for completion in batch_completions]
 
 
 if __name__ == "__main__":
@@ -48,13 +48,13 @@ if __name__ == "__main__":
     os.makedirs("results/wizard", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "openchat/opencoderplus",
+        "WizardLM/WizardCoder-15B-V1.0",
         use_auth_token=TOKEN,
     )
 
     model = torch.compile(
         GPTBigCodeForCausalLM.from_pretrained(
-            "openchat/opencoderplus",
+            "WizardLM/WizardCoder-15B-V1.0",
             device_map="auto",
             torch_dtype=torch.bfloat16,
             max_memory={

@@ -32,12 +32,12 @@ def generate_batch_completion(
         pad_token_id=tokenizer.eos_token_id,  # model has no pad token
     )
 
-    output = tokenizer.batch_decode(
+    batch_completions = tokenizer.batch_decode(
         [ids[input_ids_cutoff:] for ids in generated_ids],
         skip_special_tokens=True,
     )
 
-    return [fix_indents(out) for out in output]
+    return [fix_indents(completion) for completion in batch_completions]
 
 
 def tokenize_opencode(tokenizer: PreTrainedTokenizer, prompt: str):

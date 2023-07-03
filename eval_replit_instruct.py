@@ -33,13 +33,13 @@ def generate_batch_completion(
         pad_token_id=tokenizer.pad_token_id,
     )
 
-    output = tokenizer.batch_decode(
+    batch_completions = tokenizer.batch_decode(
         [ids[input_ids_cutoff:] for ids in generated_ids],
         skip_special_tokens=True,
         clean_up_tokenization_spaces=False,
     )
 
-    return [fix_indents(out) for out in output]
+    return [fix_indents(completion) for completion in batch_completions]
 
 
 if __name__ == "__main__":

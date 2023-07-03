@@ -1,10 +1,10 @@
 from transformers import (
     AutoTokenizer,
-    AutoModelForCausalLM,
-    PreTrainedModel,
+    GPTBigCodeForCausalLM,
     PreTrainedTokenizer,
+    PreTrainedModel,
 )
-from core import run_eval, fix_indents, filter_code, standard_prompt
+from core import run_eval, fix_indents, standard_prompt, filter_code
 import os
 import torch
 
@@ -15,7 +15,7 @@ TOKEN = ""
 
 @torch.inference_mode()
 def generate_batch_completion(
-    model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
+    model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt: str, batch_size: int
 ) -> list[str]:
     prompt_input = standard_prompt(prompt)
     input_batch = [prompt_input for _ in range(batch_size)]
@@ -36,7 +36,6 @@ def generate_batch_completion(
     batch_completions = tokenizer.batch_decode(
         [ids[input_ids_cutoff:] for ids in generated_ids],
         skip_special_tokens=True,
-        clean_up_tokenization_spaces=False,
     )
 
     return [filter_code(fix_indents(completion)) for completion in batch_completions]
@@ -45,22 +44,26 @@ def generate_batch_completion(
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-    out_path = "results/replit/eval.jsonl"
-    os.makedirs("results/replit", exist_ok=True)
+    out_path = "results/starcoder/eval.jsonl"
+    os.makedirs("results/starcoder", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "replit/replit-code-v1-3b",
+        "bigcode/starcoder",
         trust_remote_code=True,
         use_auth_token=TOKEN,
     )
 
     model = torch.compile(
-        AutoModelForCausalLM.from_pretrained(
-            "replit/replit-code-v1-3b",
+        GPTBigCodeForCausalLM.from_pretrained(
+            "bigcode/starcoder",
+            device_map="auto",
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
+            max_memory={
+                0: "18GiB",
+                1: "18GiB",
+            },
             use_auth_token=TOKEN,
-            init_device="cuda",
         ).eval()
     )
 
@@ -70,4 +73,5 @@ if __name__ == "__main__":
         num_samples_per_task,
         out_path,
         generate_batch_completion,
+        True,
     )

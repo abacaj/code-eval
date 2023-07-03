@@ -35,6 +35,7 @@ Run the eval script
 # replace script file name for various models:
 # eval_wizard.py
 # eval_opencode.py
+# eval_starcoder.py
 # eval_replit.py
 # eval_replit_instruct.py
 
@@ -43,7 +44,7 @@ python eval_wizard.py
 
 Process the jsonl file to extract code samples from model completions
 
-**Note**: the replit base + instruct model does not go through this process
+**Note**: the replit base, instruct model, and starcoder does not go through this process
 
 ```sh
 # replace args for various models:
@@ -58,6 +59,7 @@ Then get the results
 ```sh
 # replace args for various models:
 # results/wizard/processed.jsonl
+# results/starcoder/eval.jsonl
 # results/opencode/processed.jsonl
 # results/replit_instruct/eval.jsonl
 # results/replit/eval.jsonl
