@@ -11,9 +11,8 @@ This is a repo I use to run human-eval on code models, adjust as needed. Some sc
 | [WizardCoder-15B-V1.0](https://huggingface.co/WizardLM/WizardCoder-15B-V1.0)                  | 15B  | 57%    | 68.9%   | ![wizardcoder](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e)            |
 | [openchat/opencoderplus](https://huggingface.co/openchat/opencoderplus)                       | 15B  | 57%    | 68.9%   | ![opencoderplus](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e)          |
 | [replit-code-v1-3b](https://huggingface.co/replit/replit-code-v1-3b)                          | 3B   | 57%    | 68.9%   | ![replit-code-v1](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e)         |
-| [teknium/Replit-v1-CodeInstruct-3B](https://huggingface.co/teknium/Replit-v1-CodeInstruct-3B) | 3B   | 57%    | 68.9%   | ![replit-codeinstruct-v1](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e) |
+| [teknium/Replit-v1-CodeInstruct-3B](https://huggingface.co/teknium/Replit-v1-CodeInstruct-3B) | 3B   | 57%    | 68.9%   | ![replit-codeinstruct-v1](https://github.com/abacaj/code-eval/assets/7272343/4fca98d8-2c22-43ce-9639-e998ecb4fedc) |
 | [teknium/Replit-v2-CodeInstruct-3B](https://huggingface.co/teknium/Replit-v1-CodeInstruct-3B) | 3B   | 57%    | 68.9%   | ![replit-codeinstruct-v2](https://github.com/abacaj/code-eval/assets/7272343/0b941ff8-b474-4236-bbc0-89d925bbd34e) |
-
 
 
 ## Setup
