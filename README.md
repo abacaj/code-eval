@@ -5,6 +5,8 @@
 This is a repo I use to run human-eval on code models, adjust as needed. Some scripts were adjusted from wizardcoder repo (`process_eval.py`). The evaluation code is duplicated in several files, mostly to handle edge cases around model tokenizing and loading (might eventually clean it up).
 
 ## Results
+
+Table is sorted by pass@1 score.
  
 | model                                                                                                 | size | pass@1 | pass@10 | screenshot                                                                                                         |
 | ----------------------------------------------------------------------------------------------------- | ---- | ------ | ------- | ------------------------------------------------------------------------------------------------------------------ |
