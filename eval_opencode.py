@@ -29,7 +29,7 @@ def generate_batch_completion(
         top_p=0.95,
         do_sample=True,
         eos_token_id=tokenizer.eos_token_id,
-        pad_token_id=tokenizer.pad_token_id,
+        pad_token_id=tokenizer.eos_token_id,  # model has no pad token
     )
 
     output = tokenizer.batch_decode(
