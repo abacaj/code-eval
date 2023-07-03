@@ -38,6 +38,7 @@ Run the eval script
 # eval_opencode.py
 # eval_starcoder.py
 # eval_replit.py
+# eval_replit_glaive.py
 # eval_replit_instruct.py
 
 python eval_wizard.py
@@ -63,6 +64,7 @@ Then get the results
 # results/starcoder/eval.jsonl
 # results/opencode/processed.jsonl
 # results/replit_instruct/eval.jsonl
+# results/replit_glaive/eval.jsonl
 # results/replit/eval.jsonl
 
 evaluate_functional_correctness results/wizard/processed.jsonl
