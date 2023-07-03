@@ -4,3 +4,7 @@ def instruct_prompt(prompt: str) -> str:
 
 def standard_prompt(prompt: str) -> str:
     return f"""Complete the following Python code without any tests or explanation\n{prompt}"""
+
+
+def replit_glaive_prompt(prompt: str) -> str:
+    return f"""Below is an instruction that describes a task, paired with an input that provides further context.\n Write a response that appropriately completes the request.\n\n ### Instruction:\nWrite a program to perform the given task.\n\n Input:\n{prompt}\n\n### Response:"""
