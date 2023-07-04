@@ -29,6 +29,10 @@ Because it is not obvious or published what prompt or processing the official mo
 
 All of the scores here were run independently of any published numbers and are reproducible by cloning the repo and following the setup.
 
+> Why do some models have a filter_code post generation step?
+
+Base models can in many cases repeat outputs, breaking the benchmark scores. Instruct models don't have this problem and so you won't see this step, they tend to output a end of sequence token.
+
 ## Setup
 
 Create python environment
