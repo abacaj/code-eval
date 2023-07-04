@@ -21,6 +21,14 @@ Table is sorted by pass@1 score.
 | [mpt-30b](https://huggingface.co/mosaicml/mpt-30b)                                                    | 30B  | 14.4%  | 31.7%   | ![mpt-30b](https://github.com/abacaj/code-eval/assets/7272343/697d83dc-bfe9-4c13-8f54-0eab6a758b0d)                |
 | [mpt-7b](https://huggingface.co/mosaicml/mpt-7b)                                                      | 7B   | 11.7%  | 14%     | ![mpt-7b](https://github.com/abacaj/code-eval/assets/7272343/f0a082f9-35bc-423c-ad50-c21d90f2447c)                 |
 
+## FAQ
+
+> Why is there a discrepancy on some of the scores between official numbers? 
+
+Because it is not obvious or published what prompt or processing the official models used to conduct their evaluation on this benchmark. The goal here is to try and best reproduce those numbers, in many cases it is possible to get very close to the published numbers.
+
+All of the scores here were run independently of any published numbers and are reproducible by cloning the repo and following the setup.
+
 ## Setup
 
 Create python environment
