@@ -23,7 +23,7 @@ def fix_indents(text: str) -> str:
     return text.replace("\t", "    ")
 
 
-def split_batch(samples: list[str], size=3):
+def split_batch(samples: list[str], size=4):
     mini_batches = []
 
     for i in range(0, len(samples), size):

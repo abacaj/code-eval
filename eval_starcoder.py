@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval, fix_indents, standard_prompt, filter_code
+from core import run_eval, filter_code, fix_indents
 import os
 import torch
 
@@ -17,8 +17,7 @@ TOKEN = ""
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt: str, batch_size: int
 ) -> list[str]:
-    prompt_input = standard_prompt(prompt)
-    input_batch = [prompt_input for _ in range(batch_size)]
+    input_batch = [prompt for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
     input_ids_cutoff = inputs.input_ids.size(dim=1)
 
@@ -30,7 +29,7 @@ def generate_batch_completion(
         top_p=0.95,
         do_sample=True,
         eos_token_id=tokenizer.eos_token_id,
-        pad_token_id=tokenizer.pad_token_id,
+        pad_token_id=tokenizer.eos_token_id,  # model has no pad token
     )
 
     batch_completions = tokenizer.batch_decode(
@@ -38,6 +37,7 @@ def generate_batch_completion(
         skip_special_tokens=True,
     )
 
+    # fix_indents is required to fix the tab character that is generated from starcoder model
     return [filter_code(fix_indents(completion)) for completion in batch_completions]
 
 

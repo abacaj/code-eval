@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval, fix_indents, replit_glaive_prompt
+from core import run_eval, replit_glaive_prompt
 import os
 import torch
 
@@ -39,7 +39,7 @@ def generate_batch_completion(
         clean_up_tokenization_spaces=False,
     )
 
-    return [fix_indents(completion) for completion in batch_completions]
+    return batch_completions
 
 
 if __name__ == "__main__":

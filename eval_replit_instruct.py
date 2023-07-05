@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedTokenizer,
     PreTrainedModel,
 )
-from core import run_eval, fix_indents, instruct_prompt
+from core import run_eval, instruct_prompt
 import os
 import torch
 
@@ -39,7 +39,7 @@ def generate_batch_completion(
         clean_up_tokenization_spaces=False,
     )
 
-    return [fix_indents(completion) for completion in batch_completions]
+    return batch_completions
 
 
 if __name__ == "__main__":
@@ -49,14 +49,14 @@ if __name__ == "__main__":
     os.makedirs("results/replit_instruct", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
-        "teknium/Replit-v2-CodeInstruct-3B",
+        "teknium/Replit-v1-CodeInstruct-3B",
         trust_remote_code=True,
         use_auth_token=TOKEN,
     )
 
     model = torch.compile(
         AutoModelForCausalLM.from_pretrained(
-            "teknium/Replit-v2-CodeInstruct-3B",
+            "teknium/Replit-v1-CodeInstruct-3B",
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
             use_auth_token=TOKEN,

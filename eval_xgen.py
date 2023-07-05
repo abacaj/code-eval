@@ -4,7 +4,7 @@ from transformers import (
     PreTrainedModel,
     PreTrainedTokenizer,
 )
-from core import fix_indents, filter_code, run_eval, standard_prompt
+from core import filter_code, run_eval
 import os
 import torch
 
@@ -17,9 +17,7 @@ TOKEN = ""
 def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
 ) -> list[str]:
-    prompt_input = standard_prompt(prompt)
-    input_batch = [prompt_input for _ in range(batch_size)]
-
+    input_batch = [prompt for _ in range(batch_size)]
     inputs = tokenizer(input_batch, return_tensors="pt").to(model.device)
     input_ids_cutoff = inputs.input_ids.size(dim=1)
 
@@ -39,7 +37,7 @@ def generate_batch_completion(
         skip_special_tokens=True,
     )
 
-    return [filter_code(fix_indents(completion)) for completion in batch_completions]
+    return [filter_code(completion) for completion in batch_completions]
 
 
 if __name__ == "__main__":
