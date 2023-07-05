@@ -86,5 +86,5 @@ Then get the results
 # results/replit_glaive/eval.jsonl
 # results/replit/eval.jsonl
 
-evaluate_functional_correctness results/wizard/processed.jsonl
+python human-eval/human_eval/evaluate_functional_correctness.py results/wizard/processed.jsonl
 ```
