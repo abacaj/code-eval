@@ -62,7 +62,8 @@ Run the eval script
 python eval_wizard.py
 ```
 
-Process the jsonl file to extract code samples from model completions
+Process the jsonl file to extract code samples from model completions.
+
 **Note**: Only wizard & opencoder require this, they return markdown output with code.
 
 ```sh
