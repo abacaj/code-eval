@@ -16,10 +16,10 @@ Table is sorted by pass@1 score.
 | [openchat/opencoderplus](https://huggingface.co/openchat/opencoderplus)                               | 15B  | 27.3%  | 43.9%   | ![opencoder](https://github.com/abacaj/code-eval/assets/7272343/1fa9f5ef-941b-4ea8-981e-c3f258c03fee)              |
 | [teknium/Replit-v1-CodeInstruct-3B](https://huggingface.co/teknium/Replit-v1-CodeInstruct-3B)         | 3B   | 25.8%  | 42.6%   | ![replit-codeinstruct-v1](https://github.com/abacaj/code-eval/assets/7272343/4fca98d8-2c22-43ce-9639-e998ecb4fedc) |
 | [teknium/Replit-v2-CodeInstruct-3B](https://huggingface.co/teknium/Replit-v2-CodeInstruct-3B)         | 3B   | 21.5%  | 31%     | ![replit-codeinstruct-v2](https://github.com/abacaj/code-eval/assets/7272343/655aaa1d-0715-4fcd-b9ba-a22b5fddb215) |
-| [replit-code-v1-3b](https://huggingface.co/replit/replit-code-v1-3b)                                  | 3B   | 15.1%  | 27.4%   | ![replit-code-v1](https://github.com/abacaj/code-eval/assets/7272343/53375b9e-9054-4e8d-936a-1b1e7d13c291)         |
+| [replit-code-v1-3b](https://huggingface.co/replit/replit-code-v1-3b)                                  | 3B   | pending  | pending   | ![replit-code-v1]()         |
 | [xgen-7b-8k-base](https://huggingface.co/Salesforce/xgen-7b-8k-base)                                  | 7B   | 14.6%  | 20.7%   | ![xgen-7b-8k-base](https://github.com/abacaj/code-eval/assets/7272343/b2388ea1-382d-4bfe-9f08-68227e8cf8ad)        |
-| [mpt-30b](https://huggingface.co/mosaicml/mpt-30b)                                                    | 30B  | 14.4%  | 31.7%   | ![mpt-30b](https://github.com/abacaj/code-eval/assets/7272343/697d83dc-bfe9-4c13-8f54-0eab6a758b0d)                |
-| [mpt-7b](https://huggingface.co/mosaicml/mpt-7b)                                                      | 7B   | 11.7%  | 14%     | ![mpt-7b](https://github.com/abacaj/code-eval/assets/7272343/f0a082f9-35bc-423c-ad50-c21d90f2447c)                 |
+| [mpt-30b](https://huggingface.co/mosaicml/mpt-30b)                                                    | 30B  | pending  | pending   | ![mpt-30b]()                |
+| [mpt-7b](https://huggingface.co/mosaicml/mpt-7b)                                                      | 7B   | pending  | pending     | ![mpt-7b]()                 |
 
 ## FAQ
 
