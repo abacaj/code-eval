@@ -18,7 +18,7 @@ def generate_batch_completion(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, prompt, batch_size
 ) -> list[str]:
     input_batch = [prompt for _ in range(batch_size)]
-    mini_batch = split_batch(input_batch)
+    mini_batch = split_batch(input_batch, 2)
     batch_completions = []
 
     for batch in mini_batch:
@@ -64,10 +64,9 @@ if __name__ == "__main__":
             use_auth_token=TOKEN,
             device_map="auto",
             max_memory={
-                0: "18GiB",
-                1: "18GiB",
-                2: "18GiB",
-                3: "18GiB",
+                0: "20GiB",
+                1: "20GiB",
+                2: "20GiB",
             },
         ).eval()
     )
