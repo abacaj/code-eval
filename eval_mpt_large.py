@@ -47,8 +47,8 @@ def generate_batch_completion(
 if __name__ == "__main__":
     # adjust for n = 10 etc
     num_samples_per_task = 10
-    out_path = "results/mpt_3b/eval.jsonl"
-    os.makedirs("results/mpt_30b", exist_ok=True)
+    out_path = "results/mpt_large/eval.jsonl"
+    os.makedirs("results/mpt_large", exist_ok=True)
 
     tokenizer = AutoTokenizer.from_pretrained(
         "mosaicml/mpt-30b",
