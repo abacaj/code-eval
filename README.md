@@ -2,7 +2,7 @@
 
 ## What
 
-This is a repo I use to run human-eval on code models, adjust as needed. Some scripts were adjusted from wizardcoder repo (`process_eval.py`). The evaluation code is duplicated in several files, mostly to handle edge cases around model tokenizing and loading (might eventually clean it up).
+This is a repo I use to run human-eval on code models, adjust as needed. Some scripts were adjusted from wizardcoder repo (`process_eval.py`). The evaluation code is duplicated in several files, mostly to handle edge cases around model tokenizing and loading (will clean it up).
 
 ## Results
 
