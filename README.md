@@ -19,6 +19,7 @@ Table is sorted by pass@1 score.
 | [replit-code-v1-3b](https://huggingface.co/replit/replit-code-v1-3b)                                  | 3B   | 17.1%   | 29.8%   | ![replit-code-v1](https://github.com/abacaj/code-eval/assets/7272343/6b387aa8-db60-4f04-b458-35b010b1145c)         |
 | [mpt-7b](https://huggingface.co/mosaicml/mpt-7b)                                                      | 7B   | 15.9%   | 23.7%   | ![mpt-7b](https://github.com/abacaj/code-eval/assets/7272343/16965905-a368-4254-aeab-5e44126eba84)                 |
 | [xgen-7b-8k-base](https://huggingface.co/Salesforce/xgen-7b-8k-base)                                  | 7B   | 14.9%   | 22.5%   | ![xgen-7b-8k-base](https://github.com/abacaj/code-eval/assets/7272343/995c84a9-ee69-43bf-8502-a74eba1d927a)        |
+| [openllama-7b-v2](openlm-research/open_llama_7b_v2)                                                   | 7B   | 14%     | 23.1%   | ![openllama-7b-v2]()                                                                                               |
 | [mpt-30b](https://huggingface.co/mosaicml/mpt-30b)                                                    | 30B  | pending | pending | pending                                                                                                            |
 
 ## FAQ
