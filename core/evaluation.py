@@ -38,7 +38,7 @@ def run_eval(
     num_samples_per_task: int,
     out_path: str,
     generate_batch_completion: BatchGenerator,
-    is_starcoder: bool = False,
+    format_tabs: bool = False,
 ):
     problems = read_problems()
     # problems = dict(itertools.islice(problems.items(), 20))
@@ -46,7 +46,7 @@ def run_eval(
     pbar = tqdm(total=len(problems) * num_samples_per_task)
 
     for task_id in problems:
-        if is_starcoder:
+        if format_tabs:
             prompt = problems[task_id]["prompt"].replace("    ", "\t")
         else:
             prompt = problems[task_id]["prompt"]
