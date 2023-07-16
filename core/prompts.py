@@ -3,7 +3,7 @@ def instruct_prompt(prompt: str) -> str:
 
 
 def standard_prompt(prompt: str) -> str:
-    return f"""Complete the following Python code without any tests or explanation\n{prompt}"""
+    return f"""Complete the following Python code without any tests or explanation:\n{prompt}"""
 
 
 def replit_glaive_prompt(prompt: str) -> str:
