@@ -2,7 +2,7 @@
 
 ## What
 
-This is a repo I use to run human-eval on code models, adjust as needed. Some scripts were adjusted from wizardcoder repo (`process_eval.py`). The evaluation code is duplicated in several files, mostly to handle edge cases around model tokenizing and loading (will clean it up).
+This is a repo I use to run human-eval on code models, adjust as needed. Some scripts were adjusted from wizardcoder repo ([process_eval.py](https://github.com/nlpxucan/WizardLM/blob/main/WizardCoder/src/process_humaneval.py)). The evaluation code is duplicated in several files, mostly to handle edge cases around model tokenizing and loading (will clean it up).
 
 ## Results
 
@@ -22,6 +22,7 @@ Table is sorted by pass@1 score.
 | [openllama-7b-v2](https://huggingface.co/openlm-research/open_llama_7b)                               | 7B   | 14%     | 23.1%   | ![openllama-7b-v2](https://github.com/abacaj/code-eval/assets/7272343/e38f08a0-ae74-4c51-b3a7-638781477e1b)        |
 | [llama-2-7b](https://huggingface.co/meta-llama/Llama-2-7b-hf)                                                | 7B   | 13.1%   | 21.9%   | ![llama-2-7b](pending)                                                                                               |
 | [llama-7b](https://huggingface.co/huggyllama/llama-7b)                                                | 7B   | 12.1%   | 18.9%   | ![llama-7b](pending)                                                                                               |
+| [llama-7b](https://huggingface.co/huggyllama/llama-7b)                                                | 7B   | 12.1%   | 18.9%   | ![llama-7b](https://github.com/abacaj/code-eval/assets/7272343/605a3c4e-0b2b-4c10-a185-f2a4d34ec10d)                                                                                               |
 | [mpt-30b](https://huggingface.co/mosaicml/mpt-30b)                                                    | 30B  | pending | pending | pending                                                                                                            |
 
 ## FAQ
