@@ -47,12 +47,12 @@ if __name__ == "__main__":
     os.makedirs("results/llama", exist_ok=True)
 
     tokenizer = LlamaTokenizer.from_pretrained(
-        "huggyllama/llama-7b",
+        "microsoft/phi-1_5",
     )
 
     model = torch.compile(
         LlamaForCausalLM.from_pretrained(
-            "huggyllama/llama-7b",
+            "microsoft/phi-1_5",
             torch_dtype=torch.bfloat16,
         )
         .eval()
